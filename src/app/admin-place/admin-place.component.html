@@ -1,0 +1,154 @@
+
+
+
+
+<h3 style="margin-top: 100px;">List of Users</h3>
+<table style="margin-top: 20px;" class="table table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Role</th>
+  </tr>
+  </thead>
+  <tbody class="container" *ngFor="let iterator of userList">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.name}}</th>
+    <th>{{iterator.email}}</th>
+    <th>{{iterator.roleEnum}}</th>
+    <div class="col-xs-10 col-xs-offset-2">
+      <button (click)="makeBasicUser(iterator.id)" type="submit" class="btn btn-success">Make Basic User</button>
+      <button (click)="makePremiumUser(iterator.id)" type="submit" class="btn btn-warning">Make Premium User</button>
+      <button (click)="makeOwner(iterator.id)" type="submit" class="btn btn-dark">Make Owner</button>
+      <button (click)="makeAdmin(iterator.id)" type="submit" class="btn btn-primary">Make General Admin</button>
+    </div>
+  </tr>
+  </tbody>
+
+</table>
+
+
+<h3 style="margin-top: 100px;">List of Facilities</h3>
+<table style="margin-top: 20px;" class="table table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">SVG</th>
+    <th scope="col">Name of Facility</th>
+    <th scope="col">Type of Facility</th>
+  </tr>
+  </thead>
+  <tbody class="container" *ngFor="let iterator of facilityList">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.svg}}</th>
+    <th>{{iterator.facilityName}}</th>
+    <th>{{iterator.facilityType}}</th>
+    <button (click)="DeleteFacility(iterator.id)" type="submit" class="btn btn-primary">Delete</button>
+  </tr>
+  </tbody>
+
+</table>
+
+<h3 style="margin-top: 30px">Add Facility</h3>
+<form>
+
+  <div class="form-group">
+    <label for="NameFacility">Name of the Facility</label>
+    <input [(ngModel)]="facility.facilityName" type="text" name="facilityName" id="NameFacility" class="form-control" placeholder="Enter Name of the Facility">
+  </div>
+  <div class="form-group">
+    <label for="TypeFacility">Type of the Facility</label>
+    <input [(ngModel)]="facility.facilityType" type="text" id="TypeFacility" name="facilityType" class="form-control" placeholder="Enter Type of the Facility">
+  </div>
+  <div class="form-group">
+    <label for="svg">URL of the SVG image</label>
+    <input [(ngModel)]="facility.svg" type="text" id="svg" name="svg" class="form-control" placeholder="URL of the SVG image">
+  </div>
+
+  <button (click)="addFacility()" type="submit" class="btn btn-primary">Add Facility</button>
+</form>
+
+<h3 style="margin-top: 30px">Update Facility</h3>
+<form>
+
+  <div class="form-group">
+    <label for="NameFacility">ID of the Facility</label>
+    <input [(ngModel)]="facility1.id" type="text" name="facilityName" id="idFacility1" class="form-control" placeholder="Enter ID of the Facility">
+  </div>
+  <div class="form-group">
+    <label for="NameFacility">Name of the Facility</label>
+    <input [(ngModel)]="facility1.facilityName" type="text" name="facilityName" id="NameFacility1" class="form-control" placeholder="Enter Name of the Facility">
+  </div>
+  <div class="form-group">
+    <label for="TypeFacility">Type of the Facility</label>
+    <input [(ngModel)]="facility1.facilityType" type="text" id="TypeFacility1" name="facilityType" class="form-control" placeholder="Enter Type of the Facility">
+  </div>
+  <div class="form-group">
+    <label for="svg">URL of the SVG image</label>
+    <input [(ngModel)]="facility1.svg" type="text" id="svg1" name="svg" class="form-control" placeholder="URL of the SVG image">
+  </div>
+
+  <button (click)="UpdateFacility()" type="submit" class="btn btn-primary">Update Facility</button>
+</form>
+
+
+<h3 style="margin-top: 100px;">List of Descriptions</h3>
+<table style="margin-top: 20px;" class="table table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Language</th>
+    <th scope="col">Text</th>
+  </tr>
+  </thead>
+  <tbody class="container" *ngFor="let iterator of descriptionList">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.language}}</th>
+    <th>{{iterator.text}}</th>
+    <button (click)="DeleteDescription(iterator.id)" type="submit" class="btn btn-primary">Delete</button>
+  </tr>
+  </tbody>
+
+</table>
+
+<h3 style="margin-top: 30px">Add Description</h3>
+<form>
+
+  <div class="form-group">
+    <label for="language">Language</label>
+    <input [(ngModel)]="description.language" type="text" name="language" id="language" class="form-control" placeholder="Enter Language">
+  </div>
+  <div class="form-group">
+    <label for="textDescr">Content of Description</label>
+    <input [(ngModel)]="description.text" type="text" id="textDescr" name="textDescr" class="form-control" placeholder="Content of Description">
+  </div>
+
+  <button (click)="addDescription()" type="submit" class="btn btn-primary">Add Description</button>
+</form>
+
+<h3 style="margin-top: 30px">Update Description</h3>
+<form>
+
+  <div class="form-group">
+    <label for="language">ID</label>
+    <input [(ngModel)]="description1.id" type="text" name="language" id="id" class="form-control" placeholder="Enter ID">
+  </div>
+  <div class="form-group">
+    <label for="language">Language</label>
+    <input [(ngModel)]="description1.language" type="text" name="language" id="language1" class="form-control" placeholder="Enter Language">
+  </div>
+  <div class="form-group">
+    <label for="textDescr">Content of Description</label>
+    <input [(ngModel)]="description1.text" type="text" id="textDescr1" name="textDescr" class="form-control" placeholder="Content of Description">
+  </div>
+
+  <button (click)="UpdateDescription()" type="submit" class="btn btn-primary">Update Description</button>
+</form>
+
+
+
+

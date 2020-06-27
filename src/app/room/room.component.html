@@ -1,0 +1,230 @@
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="owner-place">Owner Front Page</a>
+    <a class="navbar-brand" href="room">Rooms Administrating Place</a>
+    <a class="navbar-brand" href="hotel">Hotels Administrating Place</a>
+  </nav>
+</div>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddRoom">
+  <h3 class="h3">Add a room to a hotel of yours</h3>
+  <form>
+
+    The ID of the Hotel this room will belong to
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest.idHotel" type="text" id="idHotel" name="idHotel" placeholder="Enter the ID of the Hotel">
+    </div>
+    The number of adults this room will have
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest.nrOfAdults" type="text" name="nr1" id="nr1" placeholder="Enter the number of adults">
+    </div>
+    The number of kids this room will have
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest.nrOfKids" type="text" name="nr2" id="nr2" placeholder="Enter the number of kids">
+    </div>
+    True if is available to be put in production, false otherwise
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest.available" type="text" name="av" id="av" placeholder="Enter true/false">
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="AddRoom()">Add Room</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddRoom">
+  <h3 class="h3">Update a room from a hotel of yours</h3>
+  <form>
+
+    The ID of the Hotel this room will belong to
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest2.id" type="text" id="id" name="id" placeholder="Enter the ID of the Hotel">
+    </div>
+    The ID of the Hotel this room will belong to
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest2.idHotel" type="text" id="idHotel1" name="idHotel" placeholder="Enter the ID of the Hotel">
+    </div>
+    The number of adults this room will have
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest2.nrOfAdults" type="text" name="nr1" id="nr11" placeholder="Enter the number of adults">
+    </div>
+    The number of kids this room will have
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest2.nrOfKids" type="text" name="nr2" id="nr21" placeholder="Enter the number of kids">
+    </div>
+    True if is available to be put in production, false otherwise
+    <div class="form-group">
+      <input [(ngModel)]="roomRequest2.available" type="text" name="av" id="av1" placeholder="Enter true/false">
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="UpdateRoom()">Update Room</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>
+
+<h3 style="margin-top: 100px;">Room List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Belonging to the Hotel with id bellow
+
+    <th scope="col">Number of kids per room</th>
+    <th scope="col">Number of adults per room</th>
+    <th scope="col">Availability</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of roomList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.idHotel}}</th>
+    <th>{{iterator.nrOfKids}}</th>
+    <th>{{iterator.nrOfAdults}}</th>
+    <th>{{iterator.available}}</th>
+    <button type="submit" class="btn btn-primary" (click)="DeleteRoom(iterator.id)">Delete Room</button>
+  </tr>
+  </tbody>
+
+</table>
+
+<h3 style="margin-top: 100px;">Description List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Language of the description</th>
+    <th scope="col">Text of the description</th>
+    <th scope="col">ID of the room it belongs</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of descriptionList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.language}}</th>
+    <th>{{iterator.text}}</th>
+    <th>{{iterator.idRoom}}</th>
+  </tr>
+  </tbody>
+
+</table>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddDescrDiv">
+  <h3 class="h3">Add a description for a room of yours</h3>
+  <form>
+
+    <div class="form-group">
+      <input [(ngModel)]="descriptionRequest.text" type="text" id="descrText" name="descrText" placeholder="Enter the text of the description">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="descriptionRequest.language" type="text" name="language" id="language" placeholder="Enter the language of the description">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="roomId" type="text" name="roomId" id="roomId" placeholder="Enter ID of the room">
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="AddDescription()">Add Description to a Hotel</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>
+
+<h3 style="margin-top: 100px;">Facility List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Name of the facility</th>
+    <th scope="col">Type of the facility</th>
+    <th scope="col">URL of the SVG</th>
+    <th scope="col">ID of the Hotel</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of facilityList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.facilityName}}</th>
+    <th>{{iterator.facilityType}}</th>
+    <th>{{iterator.svg}}</th>
+    <th>{{iterator.idRoom}}</th>
+  </tr>
+  </tbody>
+
+</table>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddFacilityDiv">
+  <h3 class="h3">Add A Facility for a Room of yours</h3>
+  <form>
+
+    <div class="form-group">
+      <input [(ngModel)]="facilityRequest.facilityName" type="text" id="name" name="name" placeholder="Enter the name of your facility ">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="facilityRequest.svg" type="text" name="svg" id="svg" placeholder="Enter the URL of your SVG of the facility">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="roomId" type="text" name="idRoom2" id="idRoom2" placeholder="Enter ID of the room">
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="AddFacility()">Add Facility to a Room</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>
+
+<h3 style="margin-top: 100px;">Price List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Start Date</th>
+    <th scope="col">End Date</th>
+    <th scope="col">Amount</th>
+    <th scope="col">ID of the Room</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of priceList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.startDate}}</th>
+    <th>{{iterator.endDate}}</th>
+    <th>{{iterator.amount}}</th>
+    <th>{{iterator.idRoom}}</th>
+  </tr>
+  </tbody>
+
+</table>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddPriceDiv">
+  <h3 class="h3">Add A Price for a Room of yours</h3>
+  <form>
+
+    <div class="form-group">
+      <h5 style="font-family: Calibri">First day for the new price:</h5>
+      <input [(ngModel)]="priceRequest.startDate" type="date" id="start" name="start" placeholder="Enter the start date for your price ">
+    </div>
+    <div class="form-group">
+      <h5 style="font-family: Calibri">Last day for the new price:</h5>
+      <input [(ngModel)]="priceRequest.endDate" type="date" name="end" id="end" placeholder="Enter the end date for your price">
+    </div>
+    <div class="form-group">
+      <h5 style="font-family: Calibri">The amount to be paid daily when this price is set:</h5>
+      <input [(ngModel)]="priceRequest.amount" type="number" name="amount" id="amount" placeholder="Enter the amount to be paid daily">
+    </div>
+    <div class="form-group">
+      <h5 style="font-family: Calibri">The ID of the room which will have the price</h5>
+      <input [(ngModel)]="priceRequest.idRoom" type="number" name="idRoom" id="idRoom" placeholder="Enter the ID of the Room">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" (click)="AddPrice()">Add Price to a room of yours</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>
+

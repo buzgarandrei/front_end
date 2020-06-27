@@ -1,0 +1,11 @@
+.footer {
+  position: absolute;
+  background-color: darkblue;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 200px;
+  line-height: 0px;
+  left: 0;
+  right: 0;
+}

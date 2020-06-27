@@ -1,0 +1,80 @@
+<body style=" min-height: 100vh; display: block; position: relative; padding-bottom: 200px">
+
+<div class="container"  >
+  <div class="row">
+    <form style="margin-top: 100px;">
+      <div class="form-row align-items-center">
+
+        <div class="col">
+          <label for="cityName">&nbsp;</label>
+          <input [(ngModel)]="search.cityName" class="form-control" id="cityName" name="cityName" placeholder="City"
+                 type="text">
+        </div>
+        <div class="col">
+          <label for="nrOfKids">&nbsp;</label>
+          <input [(ngModel)]="search.nrOfKids" class="form-control" id="nrOfKids" name="nrOfKids"
+                 placeholder="Number of children" type="text">
+        </div>
+        <div class="col">
+          <label for="nrOfAdults">&nbsp;</label>
+          <input [(ngModel)]="search.nrOfAdults" class="form-control" id="nrOfAdults" name="nrOfAdults"
+                 placeholder="Number of adults" type="text">
+        </div>
+        <div class="col">
+          <label for="startDate">Beginning:</label>
+          <input [(ngModel)]="search.dateStart" class="form-control" id="startDate" name="startDate" type="date">
+        </div>
+        <div class="col">
+          <label for="endDate">Ending:</label>
+          <input [(ngModel)]="search.dateEnd" class="form-control" id="endDate" name="endDate" type="date">
+        </div>
+        <button (click)="doSearch()" class="btn btn-primary" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<table class="table table-sm" style="margin-top: 100px; width: content-box ">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID Room</th>
+    <th scope="col">Start Date</th>
+    <th scope="col">End Date</th>
+    <th scope="col">Total</th>
+    <th scope="col">Description of the Room</th>
+    <th scope="col">Name of the Hotel</th>
+    <th scope="col">Description of the Hotel</th>
+    <th scope="col">Facilities of the Room</th>
+    <th scope="col">Facilities of the Hotel</th>
+    <th scope="col">Status of Availability</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of searchResult" class="container">
+  <tr>
+    <th>{{iterator.idRoom}}</th>
+    <th>{{iterator.startDate}}</th>
+    <th>{{iterator.endDate}}</th>
+    <th>{{iterator.total}}</th>
+    <th>{{iterator.roomDescription}}</th>
+    <th>{{iterator.hotelName}}</th>
+    <th>{{iterator.hotelDescription}}</th>
+    <th>{{parse(iterator.roomFacilities)}}</th>
+    <th>{{parse(iterator.hotelFacilities)}}</th>
+    <th>{{iterator.roomAvailability}}</th>
+    <button (click)="doMakeAppointment(iterator.idRoom, iterator.startDate, iterator.endDate, iterator.total)"
+            *ngIf="iterator.roomAvailability === 'AVAILABLE'" class="btn btn-default" type="submit">Reserve
+    </button>
+  </tr>
+  </tbody>
+
+</table>
+
+<div id="div1" style="visibility: hidden">Appointment made successfully made by the user with id: {{response.userId}},
+  beginning with the date of: {{response.startDate}} ,ending with the date of {{response.endDate}} and having the total
+  amount of {{response.ammount}}</div>
+
+</body>
+
+
+
+

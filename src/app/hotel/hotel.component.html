@@ -1,0 +1,113 @@
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="owner-place">Owner Front Page</a>
+    <a class="navbar-brand" href="room">Rooms Administrating Place</a>
+    <a class="navbar-brand" href="hotel">Hotels Administrating Place</a>
+  </nav>
+</div>
+
+<h3 style="margin-top: 100px;">Hotel List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID of the Hotel</th>
+    <th scope="col">Name of The Hotel</th>
+    <th scope="col">City where Hotel is situated</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of hotelList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.city}}</th>
+    <th>{{iterator.name}}</th>
+  </tr>
+  </tbody>
+</table>
+
+  <h3 style="margin-top: 100px;">Facilities Of the Hotels</h3>
+  <table class="table table-sm" style="margin-top: 10px;">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID of the facility</th>
+      <th scope="col">Name of the facility</th>
+      <th scope="col">Type of the Facility</th>
+      <th scope="col">URL address of the Facility</th>
+      <th scope="col">ID of Hotel</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let iterator of hotelFacilitiesList" class="container">
+    <tr>
+      <th>{{iterator.id}}</th>
+      <th>{{iterator.facilityName}}</th>
+      <th>{{iterator.facilityType}}</th>
+      <th>{{iterator.svg}}</th>
+      <th>{{iterator.idHotel}}</th>
+    </tr>
+    </tbody>
+
+</table>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddFacilityDiv">
+  <h3 class="h3">Add A Facility for a Hotel of yours</h3>
+  <form>
+
+    <div class="form-group">
+      <input [(ngModel)]="facilityRequest.facilityName" type="text" id="name" name="name" placeholder="Enter the name of your facility ">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="facilityRequest.svg" type="text" name="language" id="svg" placeholder="Enter the URL of your SVG of the facility">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="hotelId" type="text" name="idHotel2" id="idHotel2" placeholder="Enter ID of the hotel">
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="AddFacility()">Add Facility to a Hotel</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>
+
+  <h3 style="margin-top: 100px;">Descriptions Of the Hotels</h3>
+  <table class="table table-sm" style="margin-top: 10px;">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID of the description</th>
+      <th scope="col">Text of the description</th>
+      <th scope="col">Language of the Description</th>
+      <th scope="col">ID of the Hotel it belongs</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let iterator of descriptionList" class="container">
+    <tr>
+      <th>{{iterator.id}}</th>
+      <th>{{iterator.text}}</th>
+      <th>{{iterator.language}}</th>
+      <th>{{iterator.idHotel}}</th>
+    </tr>
+    </tbody>
+
+  </table>
+
+<div align="left" display="none" style="margin-top: 50px;" class="container" id="AddDescrDiv">
+  <h3 class="h3">Add A description for a Hotel of yours</h3>
+  <form>
+
+    <div class="form-group">
+      <input [(ngModel)]="descriptionRequest.text" type="text" id="descrText" name="descrText" placeholder="Enter the text of the description">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="descriptionRequest.language" type="text" name="language" id="language" placeholder="Enter the language of the description">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="hotelId" type="text" name="idHotel" id="idHotel" placeholder="Enter ID of the hotel">
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="AddDescription()">Add Description to a Hotel</button>
+    <button class="btn btn-secondary" onClick="history.go(-1);this.disabled=true;" >Go back</button>
+
+  </form>
+</div>

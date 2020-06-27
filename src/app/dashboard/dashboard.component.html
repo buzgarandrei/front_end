@@ -1,0 +1,35 @@
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="about">about</a>
+  </nav>
+</div>
+
+<table class="table table-sm" style="margin-top: 100px; width: auto">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID </th>
+    <th scope="col">Start Date</th>
+    <th scope="col">End Date</th>
+    <th scope="col">Total</th>
+    <th scope="col">ID of the Room</th>
+    <th scope="col">Name of the Hotel</th>
+    <th scope="col">Status of the Appointment</th>
+    <th scope="col">Status of your payment, "true" for the appointment being paid, "false" for the opposite</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of appointments" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.startDate}}</th>
+    <th>{{iterator.endDate}}</th>
+    <th>{{iterator.ammount}}</th>
+    <th>{{iterator.roomId}}</th>
+    <th>{{iterator.hotelName}}</th>
+    <th>{{iterator.status}}</th>
+    <th>{{iterator.paid}}</th>
+  </tr>
+  </tbody>
+
+</table>

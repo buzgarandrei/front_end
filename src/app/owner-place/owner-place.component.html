@@ -1,0 +1,114 @@
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="room">Rooms Administrating Place</a>
+    <a class="navbar-brand" href="hotel">Hotels Administrating Place</a>
+  </nav>
+</div>
+
+<h3 style="margin-top: 100px;">Booking List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Name of The Hotel</th>
+    <th scope="col">ID of the Room wanted to be booked</th>
+    <th scope="col">Start Date</th>
+    <th scope="col">End Date</th>
+    <th scope="col">Ammount to be paid</th>
+    <th scope="col">ID of the client</th>
+    <th scope="col">Status of the booking </th>
+    <th scope="col">Status of the payment </th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of appointmentList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.hotelName}}</th>
+    <th>{{iterator.roomId}}</th>
+    <th>{{iterator.startDate}}</th>
+    <th>{{iterator.endDate}}</th>
+    <th>{{iterator.ammount}}</th>
+    <th>{{iterator.userId}}</th>
+    <th>{{iterator.status}}</th>
+    <th>{{iterator.paid}}</th>
+
+    <div class="col-xs-10 col-xs-offset-2">
+      <button type="submit" class="btn btn-default" (click)="acceptApp(iterator.id)">Accept Appointment</button>
+      <button type="submit" class="btn btn-default" (click)="refuseApp(iterator.id)">Refuse Appointment</button>
+    </div>
+  </tr>
+  </tbody>
+
+</table>
+
+<h3 style="margin-top: 100px;">Hotel List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Name of The Hotel</th>
+    <th scope="col">City where Hotel is situated</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of hotelList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.city}}</th>
+    <th>{{iterator.name}}</th>
+    <button type="submit" class="btn btn-default" (click)="modifyHotel(iterator.id)">Modify Hotel</button>
+  </tr>
+  </tbody>
+
+</table>
+
+
+<h3 style="margin-top: 100px;">Room List</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Belonging to the Hotel with id bellow
+
+    <th scope="col">Number of kids per room</th>
+    <th scope="col">Number of adults per room</th>
+    <th scope="col">Availability</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of roomList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.idHotel}}</th>
+    <th>{{iterator.nrOfKids}}</th>
+    <th>{{iterator.nrOfAdults}}</th>
+    <th>{{iterator.available}}</th>
+    <button type="submit" class="btn btn-default" (click)="modifyRoom(iterator.id, iterator.idHotel, iterator.nrOfAdults, iterator.nrOfKids,iterator.available)">Modify Hotel</button>
+  </tr>
+  </tbody>
+
+</table>
+
+<h3 style="margin-top: 100px;">Price Table for the Above Rooms</h3>
+<table class="table table-sm" style="margin-top: 10px;">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Start Date</th>
+    <th scope="col">end Date</th>
+    <th scope="col">Amount</th>
+    <th scope="col">ID of the Room</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let iterator of priceList" class="container">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.startDate}}</th>
+    <th>{{iterator.endDate}}</th>
+    <th>{{iterator.amount}}</th>
+    <th>{{iterator.idRoom}}</th>
+    <button type="submit" class="btn btn-default" (click)="modifyPrice(iterator.id, iterator.idRoom, iterator.amount, iterator.endDate, iterator.startDate)">Modify Hotel</button>
+  </tr>
+  </tbody>
+</table>
+
+
