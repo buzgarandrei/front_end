@@ -1,3 +1,3 @@
 export class Global {
-  public static domainName: string = 'bookingbackend.herokuapp.com/';
+  public static domainName = 'bookingbackend.herokuapp.com/';
 }
