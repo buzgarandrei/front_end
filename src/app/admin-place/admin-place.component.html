@@ -28,7 +28,47 @@
   </tbody>
 
 </table>
+<h3 style="margin-top: 100px;">List of Hotels</h3>
+<table style="margin-top: 20px;" class="table table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Name of the Hotel</th>
+    <th scope="col">ID of the owner</th>
+    <th scope="col">City</th>
+  </tr>
+  </thead>
+  <tbody class="container" *ngFor="let iterator of hotels">
+  <tr>
+    <th>{{iterator.id}}</th>
+    <th>{{iterator.name}}</th>
+    <th>{{iterator.idUser}}</th>
+    <th>{{iterator.city}}</th>
+  </tr>
+  </tbody>
+</table>
 
+  <h3 style="margin-top: 100px;">List of Rooms</h3>
+  <table style="margin-top: 20px;" class="table table-sm">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Availability</th>
+      <th scope="col">Nr of children</th>
+      <th scope="col">Nr of adults</th>
+      <th scope="col">ID of the hotel it belongs</th>
+    </tr>
+    </thead>
+    <tbody class="container" *ngFor="let iterator of rooms">
+    <tr>
+      <th>{{iterator.id}}</th>
+      <th>{{iterator.available}}</th>
+      <th>{{iterator.nrOfKids}}</th>
+      <th>{{iterator.nrOfAdults}}</th>
+      <th>{{iterator.idHotel}}</th>
+    </tr>
+    </tbody>
+  </table>
 
 <h3 style="margin-top: 100px;">List of Facilities</h3>
 <table style="margin-top: 20px;" class="table table-sm">

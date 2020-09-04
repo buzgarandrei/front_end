@@ -34,8 +34,8 @@
     <th>{{iterator.paid}}</th>
 
     <div class="col-xs-10 col-xs-offset-2">
-      <button type="submit" class="btn btn-default" (click)="acceptApp(iterator.id)">Accept Appointment</button>
-      <button type="submit" class="btn btn-default" (click)="refuseApp(iterator.id)">Refuse Appointment</button>
+      <button type="submit" class="btn btn-primary" (click)="acceptApp(iterator.id)">Accept Appointment</button>
+      <button type="submit" class="btn btn-danger" (click)="refuseApp(iterator.id)">Refuse Appointment</button>
     </div>
   </tr>
   </tbody>
@@ -56,7 +56,6 @@
     <th>{{iterator.id}}</th>
     <th>{{iterator.city}}</th>
     <th>{{iterator.name}}</th>
-    <button type="submit" class="btn btn-default" (click)="modifyHotel(iterator.id)">Modify Hotel</button>
   </tr>
   </tbody>
 
@@ -82,7 +81,6 @@
     <th>{{iterator.nrOfKids}}</th>
     <th>{{iterator.nrOfAdults}}</th>
     <th>{{iterator.available}}</th>
-    <button type="submit" class="btn btn-default" (click)="modifyRoom(iterator.id, iterator.idHotel, iterator.nrOfAdults, iterator.nrOfKids,iterator.available)">Modify Hotel</button>
   </tr>
   </tbody>
 
@@ -106,7 +104,6 @@
     <th>{{iterator.endDate}}</th>
     <th>{{iterator.amount}}</th>
     <th>{{iterator.idRoom}}</th>
-    <button type="submit" class="btn btn-default" (click)="modifyPrice(iterator.id, iterator.idRoom, iterator.amount, iterator.endDate, iterator.startDate)">Modify Hotel</button>
   </tr>
   </tbody>
 </table>

@@ -4,6 +4,7 @@ import {UserResponse} from '../models/UserResponse';
 import {UserRequest} from '../models/UserRequest';
 import {Observable} from 'rxjs';
 import {StateResponse} from '../models/StateResponse';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-login',
@@ -28,11 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(): Observable<UserResponse> {
-    return this.http.post<UserResponse>('http://localhost:8080/login', this.userRequest);
+    return this.http.post<UserResponse>(Global.domainName + 'login', this.userRequest);
   }
 
   addUser(): Observable<StateResponse> {
-    return this.http.post<StateResponse>('http://localhost:8080/addUser', this.userRequest2);
+    return this.http.post<StateResponse>(Global.domainName + 'addUser', this.userRequest2);
   }
 
   interpretUser() {
@@ -41,10 +42,10 @@ export class LoginComponent implements OnInit {
         console.table(result);
         if (result) {
           if (result.success === true) {
-            console.log('User added successfully');
+            alert('User added successfully');
           }
           if (result.success === false) {
-            console.log('Problems adding user');
+            alert('Problems adding user');
           }
         }
       },
@@ -74,11 +75,11 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  logOut(): Observable<StateResponse>{
+  logOut(): Observable<StateResponse> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.get<StateResponse>('http://localhost:8080/logout', {headers: headers2});
+    return this.http.get<StateResponse>(Global.domainName + 'logout', {headers: headers2});
   }
   LogOut() {
     this.logOut().subscribe(

@@ -9,6 +9,7 @@ import {HotelRequest} from '../models/HotelRequest';
 import {AppointmentResponse} from '../models/AppointmentResponse';
 import {RequestWithId} from '../models/RequestWithId';
 import {HotelDescriptionResponse} from '../models/HotelDescriptionResponse';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-owner-place',
@@ -77,21 +78,21 @@ export class OwnerPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<HotelResponse[]>('http://localhost:8080/getHotelsOfOwner', null, {headers: headers2});
+    return this.http.post<HotelResponse[]>(Global.domainName + 'getHotelsOfOwner', null, {headers: headers2});
   }
 
   showRoomsOfHotels(id: number): Observable<RoomResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<RoomResponse[]>('http://localhost:8080/getRoomsOfAHotel', id, {headers: headers2});
+    return this.http.post<RoomResponse[]>(Global.domainName + 'getRoomsOfAHotel', id, {headers: headers2});
   }
 
   showPricesOfRooms(id: number): Observable<PriceResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<PriceResponse[]>('http://localhost:8080/getPricesOfRoom', id, {headers: headers2});
+    return this.http.post<PriceResponse[]>(Global.domainName + 'getPricesOfRoom', id, {headers: headers2});
   }
 
   addHotel(): Observable<StateResponse> {
@@ -100,7 +101,7 @@ export class OwnerPlaceComponent implements OnInit {
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     // tslint:disable-next-line:radix
     this.hotelRequest.idUser = localStorage.getItem('id');
-    return this.http.post<StateResponse>('http://localhost:8080/addHotel', this.hotelRequest, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addHotel', this.hotelRequest, {headers: headers2});
   }
 
   addHotelCall() {
@@ -134,7 +135,7 @@ export class OwnerPlaceComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     // tslint:disable-next-line:radix
-    return this.http.post<AppointmentResponse[]>('http://localhost:8080/getAppointmentsAtAHotel', null, {headers: headers2});
+    return this.http.post<AppointmentResponse[]>(Global.domainName + 'getAppointmentsAtAHotel', null, {headers: headers2});
   }
 
   acceptApp(id: number) {
@@ -170,13 +171,13 @@ export class OwnerPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/acceptAppointment', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'acceptAppointment', id, {headers: headers2});
   }
 
   RefuseApp(id: number): Observable<StateResponse> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/refuseAppointment', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'refuseAppointment', id, {headers: headers2});
   }
 }

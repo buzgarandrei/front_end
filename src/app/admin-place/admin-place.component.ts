@@ -8,7 +8,9 @@ import {FacilityRequest} from '../models/FacilityRequest';
 import {Observable} from 'rxjs';
 import {StateResponse} from '../models/StateResponse';
 import {RequestWithId} from '../models/RequestWithId';
-import {error} from 'util';
+import {HotelResponse} from '../models/HotelResponse';
+import {RoomResponse} from '../models/RoomResponse';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-admin-place',
@@ -17,14 +19,17 @@ import {error} from 'util';
 })
 export class AdminPlaceComponent implements OnInit {
 
-  userList: UserResponse[];
-  facilityList: FacilityResponse[];
-  descriptionList: DescriptionResponse[];
+  userList: UserResponse[] = [];
+  facilityList: FacilityResponse[] = [];
+  descriptionList: DescriptionResponse[] = [];
   description: DescriptionRequest = new DescriptionRequest();
   description1: DescriptionRequest = new DescriptionRequest();
   requestWithId: RequestWithId = new RequestWithId();
   facility: FacilityRequest = new FacilityRequest();
   facility1: FacilityRequest = new FacilityRequest();
+  hotels: HotelResponse[] = [];
+  rooms: RoomResponse[] = [];
+
 
   constructor(private http: HttpClient) { }
 
@@ -60,6 +65,8 @@ export class AdminPlaceComponent implements OnInit {
         console.log(error);
       }
     );
+    this.ShowHotels();
+    this.ShowRooms();
 
   }
 
@@ -67,21 +74,55 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<UserResponse[]>('http://localhost:8080/getUsers', null, {headers: headers2});
+    return this.http.post<UserResponse[]>( Global.domainName + 'getUsers', null, {headers: headers2});
   }
 
   showFacilities(): Observable<FacilityResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<FacilityResponse[]>('http://localhost:8080/getFacilities', null, {headers: headers2});
+    return this.http.post<FacilityResponse[]>(Global.domainName + 'getFacilities', null, {headers: headers2});
+  }
+
+  showHotels(): Observable<HotelResponse[]> {
+    let headers2: HttpHeaders = new HttpHeaders();
+    headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
+    headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
+    return this.http.get<HotelResponse[]>(Global.domainName + 'getHotels', {headers: headers2});
+  }
+  ShowHotels() {
+    this.showHotels().subscribe(
+      result => {
+        if (result.length > 0) {
+          this.hotels = result;
+        } else { console.log('error getting hotels'); }
+      },
+      error1 => { console.log(error1); }
+    );
+  }
+
+  showRooms(): Observable<RoomResponse[]> {
+    let headers2: HttpHeaders = new HttpHeaders();
+    headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
+    headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
+    return this.http.get<RoomResponse[]>(Global.domainName + 'getRooms', {headers: headers2});
+  }
+  ShowRooms() {
+    this.showRooms().subscribe(
+      result => {
+        if (result.length > 0) {
+          this.rooms = result;
+        } else { console.log('error getting rooms'); }
+      },
+      error1 => { console.log(error1); }
+    );
   }
 
   showDescriptions(): Observable<DescriptionResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<DescriptionResponse[]>('http://localhost:8080/getDescriptions', null, {headers: headers2});
+    return this.http.post<DescriptionResponse[]>(Global.domainName + 'getDescriptions', null, {headers: headers2});
   }
 
   AddDescription(): Observable<StateResponse> {
@@ -89,7 +130,7 @@ export class AdminPlaceComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     alert(this.description.language + ' ' + this.description.text);
-    return this.http.post<StateResponse>('http://localhost:8080/addDescription', this.description, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addDescription', this.description, {headers: headers2});
   }
   addDescription() {
     this.AddDescription().subscribe(
@@ -104,7 +145,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/updateDescription', this.description1, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'updateDescription', this.description1, {headers: headers2});
   }
   UpdateDescription() {
     this.updateDescription().subscribe(
@@ -121,7 +162,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/deleteDescription', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'deleteDescription', id, {headers: headers2});
   }
   DeleteDescription(id: number) {
     this.deleteDescription(id).subscribe(
@@ -138,7 +179,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/addFacility', this.facility, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addFacility', this.facility, {headers: headers2});
   }
   addFacility() {
     this.AddFacility().subscribe(
@@ -155,7 +196,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/updateFacility', this.facility1, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'updateFacility', this.facility1, {headers: headers2});
   }
   UpdateFacility() {
     this.updateFacility().subscribe(
@@ -172,7 +213,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/deleteFacility', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'deleteFacility', id, {headers: headers2});
   }
   DeleteFacility(id: number) {
     this.deleteFacility(id).subscribe(
@@ -190,7 +231,7 @@ export class AdminPlaceComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     alert(id);
-    return this.http.post<StateResponse>('http://localhost:8080/makeBasicUser', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'makeBasicUser', id, {headers: headers2});
   }
   makeBasicUser(id: number) {
     this.MakeBasicUser(id).subscribe(
@@ -207,7 +248,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/makePremiumUser', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'makePremiumUser', id, {headers: headers2});
   }
   makePremiumUser(id: number) {
     this.MakePremiumUser(id).subscribe(
@@ -224,7 +265,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/makeOwner', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'makeOwner', id, {headers: headers2});
   }
   makeOwner(id: number) {
     this.MakeOwner(id).subscribe(
@@ -241,7 +282,7 @@ export class AdminPlaceComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/makeAdmin', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'makeAdmin', id, {headers: headers2});
   }
   makeAdmin(id: number) {
     this.MakeAdmin(id).subscribe(

@@ -9,8 +9,7 @@ import {DescriptionRequest} from '../models/DescriptionRequest';
 import {StateResponse} from '../models/StateResponse';
 import {FacilityRequest} from '../models/FacilityRequest';
 import {RequestWith2Ids} from '../models/RequestWith2Ids';
-import {RoomRequest} from '../models/RoomRequest';
-import {RequestWithId} from '../models/RequestWithId';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-hotel',
@@ -51,19 +50,19 @@ export class HotelComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<HotelResponse[]>('http://localhost:8080/getHotelsOfOwner', null, {headers: headers2});
+    return this.http.post<HotelResponse[]>(Global.domainName + 'getHotelsOfOwner', null, {headers: headers2});
   }
   getHotelFacilities(id: number): Observable<FacilityResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<FacilityResponse[]>('http://localhost:8080/getHotelFacilities', id, {headers: headers2});
+    return this.http.post<FacilityResponse[]>(Global.domainName + 'getHotelFacilities', id, {headers: headers2});
   }
   getHotelDescription(id: number): Observable<HotelDescriptionResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<HotelDescriptionResponse[]>('http://localhost:8080/getDescriptionsOfAHotel', id, {headers: headers2});
+    return this.http.post<HotelDescriptionResponse[]>(Global.domainName + 'getDescriptionsOfAHotel', id, {headers: headers2});
   }
   getFacilitiesOfHotel(id: number) {
     this.getHotelFacilities(id).subscribe(
@@ -89,7 +88,7 @@ export class HotelComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<DescriptionResponse>('http://localhost:8080/getDescriptionById', id, {headers: headers2});
+    return this.http.post<DescriptionResponse>(Global.domainName + 'getDescriptionById', id, {headers: headers2});
   }
 
   GetDescription(id: number, hotelId: number) {
@@ -106,7 +105,7 @@ export class HotelComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     const body = { language: this.descriptionRequest.language, text: this.descriptionRequest.text };
-    return this.http.post<any>('http://localhost:8080/addDescription', body, {headers: headers2});
+    return this.http.post<any>(Global.domainName + 'addDescription', body, {headers: headers2});
   }
   AddDescription() {
     this.addDescription().subscribe(
@@ -125,7 +124,7 @@ export class HotelComponent implements OnInit {
     description.hotelDescriptionType = 'DESCRIPTION';
     description.hotelId = this.hotelId;
     description.descriptionId = idDescr;
-    return this.http.post<StateResponse>('http://localhost:8080/addHotelDescription', description , {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addHotelDescription', description , {headers: headers2});
   }
   AddHotelDescription(idDescr: number) {
     this.addHotelDescription(idDescr).subscribe(
@@ -142,7 +141,7 @@ export class HotelComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     this.facilityRequest.facilityType = 'HOTEL';
-    return this.http.post<any>('http://localhost:8080/addFacility', this.facilityRequest, {headers: headers2});
+    return this.http.post<any>(Global.domainName + 'addFacility', this.facilityRequest, {headers: headers2});
   }
   AddFacility() {
     this.addFacility().subscribe(
@@ -169,6 +168,6 @@ export class HotelComponent implements OnInit {
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     this.requestWith2Ids.id1 = id1;
     this.requestWith2Ids.id2 = id2;
-    return this.http.post<any>('http://localhost:8080/addHotelFacility', this.requestWith2Ids, {headers: headers2});
+    return this.http.post<any>(Global.domainName + 'addHotelFacility', this.requestWith2Ids, {headers: headers2});
   }
 }

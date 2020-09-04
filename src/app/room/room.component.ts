@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {RoomResponse} from '../models/RoomResponse';
 import {HttpClient,  HttpHeaders} from '@angular/common/http';
 import {HotelResponse} from '../models/HotelResponse';
-import {subscribeOn} from 'rxjs/operators';
 import {DescriptionResponse} from '../models/DescriptionResponse';
 import {RoomDescriptionResponse} from '../models/RoomDescriptionResponse';
 import {FacilityResponse} from '../models/FacilityResponse';
@@ -12,11 +11,10 @@ import {StateResponse} from '../models/StateResponse';
 import {PriceRequest} from '../models/PriceRequest';
 import {DescriptionRequest} from '../models/DescriptionRequest';
 import {RoomDescriptionRequest} from '../models/RoomDescriptionRequest';
-import {error} from 'util';
 import {FacilityRequest} from '../models/FacilityRequest';
 import {RequestWith2Ids} from '../models/RequestWith2Ids';
 import {RoomRequest} from '../models/RoomRequest';
-import {RequestWithId} from '../models/RequestWithId';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-room',
@@ -75,14 +73,14 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<HotelResponse[]>('http://localhost:8080/getHotelsOfOwner', null, {headers: headers2});
+    return this.http.post<HotelResponse[]>(Global.domainName + 'getHotelsOfOwner', null, {headers: headers2});
   }
   showRoomsOfAHotel(id: number): Observable<RoomResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     // tslint:disable-next-line:radix
-    return this.http.post<RoomResponse[]>('http://localhost:8080/getRoomsOfAHotel', id, {headers: headers2});
+    return this.http.post<RoomResponse[]>(Global.domainName + 'getRoomsOfAHotel', id, {headers: headers2});
   }
 
   getRoomDescriptions(id: number): Observable<RoomDescriptionResponse[]> {
@@ -90,7 +88,7 @@ export class RoomComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     // tslint:disable-next-line:radix
-    return this.http.post<RoomDescriptionResponse[]>('http://localhost:8080/getDescriptionsOfARoom', id, {headers: headers2});
+    return this.http.post<RoomDescriptionResponse[]>(Global.domainName + 'getDescriptionsOfARoom', id, {headers: headers2});
   }
   GetRoomDescriptions(id: number) {
     this.getRoomDescriptions(id).subscribe(
@@ -110,7 +108,7 @@ export class RoomComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     // tslint:disable-next-line:radix
-    return this.http.post<DescriptionResponse>('http://localhost:8080/getDescriptionById', descriptionId, {headers: headers2});
+    return this.http.post<DescriptionResponse>(Global.domainName + 'getDescriptionById', descriptionId, {headers: headers2});
   }
 
   GetPureDescription(descriptionId: number, roomId: number) {
@@ -123,12 +121,12 @@ export class RoomComponent implements OnInit {
     );
   }
 
-  getRoomFacilities(id: number): Observable<FacilityResponse[]>{
+  getRoomFacilities(id: number): Observable<FacilityResponse[]> {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     // tslint:disable-next-line:radix
-    return this.http.post<FacilityResponse[]>('http://localhost:8080/getRoomFacilities', id, {headers: headers2});
+    return this.http.post<FacilityResponse[]>(Global.domainName + 'getRoomFacilities', id, {headers: headers2});
   }
 
   GetRoomFacilities(id: number) {
@@ -145,7 +143,7 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<PriceResponse[]>('http://localhost:8080/getPricesOfRoom', id, {headers: headers2});
+    return this.http.post<PriceResponse[]>(Global.domainName + 'getPricesOfRoom', id, {headers: headers2});
   }
   GetRoomPrices(id: number) {
     this.getRoomPrices(id).subscribe(
@@ -160,14 +158,14 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/addPrice', this.priceRequest, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addPrice', this.priceRequest, {headers: headers2});
   }
   AddPrice() {
     this.addPrice().subscribe(
       result => {
         if (result.success === true) {
           alert('Price added successfully');
-        } else { alert('Price was not added succesfully'); }
+        } else { alert('Price was not added successfully'); }
       },
       error => {console.log(error); }
     );
@@ -177,7 +175,7 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<number>('http://localhost:8080/addDescription', this.descriptionRequest, {headers: headers2});
+    return this.http.post<number>(Global.domainName + 'addDescription', this.descriptionRequest, {headers: headers2});
   }
   AddDescription() {
     this.addDescription().subscribe(
@@ -192,7 +190,7 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/addRoomDescription', roomDescriptionRequest, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addRoomDescription', roomDescriptionRequest, {headers: headers2});
 
   }
   AddRoomDescription(idDescription: number, idRoom: number) {
@@ -215,7 +213,7 @@ export class RoomComponent implements OnInit {
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     this.requestWith2Ids.id1 = roomId;
     this.requestWith2Ids.id2 = idFacility;
-    return this.http.post<StateResponse>('http://localhost:8080/addRoomFacility', this.requestWith2Ids, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addRoomFacility', this.requestWith2Ids, {headers: headers2});
   }
   AddRoomFacility(idFacility: number, roomId: number) {
     this.addRoomFacility(idFacility, roomId).subscribe(
@@ -232,7 +230,7 @@ export class RoomComponent implements OnInit {
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
     this.facilityRequest.facilityType = 'ROOM';
-    return this.http.post<number>('http://localhost:8080/addFacility', this.facilityRequest, {headers: headers2});
+    return this.http.post<number>(Global.domainName + 'addFacility', this.facilityRequest, {headers: headers2});
   }
   AddFacility() {
     this.addFacility().subscribe(
@@ -247,7 +245,7 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/addRoom', this.roomRequest, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'addRoom', this.roomRequest, {headers: headers2});
   }
   AddRoom() {
     this.addRoom().subscribe(
@@ -264,7 +262,7 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/updateRoom', this.roomRequest2, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'updateRoom', this.roomRequest2, {headers: headers2});
   }
   UpdateRoom() {
     this.updateRoom().subscribe(
@@ -281,7 +279,7 @@ export class RoomComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<StateResponse>('http://localhost:8080/deleteRoom', id, {headers: headers2});
+    return this.http.post<StateResponse>(Global.domainName + 'deleteRoom', id, {headers: headers2});
   }
 
   DeleteRoom(id: number) {

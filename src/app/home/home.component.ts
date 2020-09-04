@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {FacilityResponse} from '../models/FacilityResponse';
 import {SearchRequest} from '../models/SearchRequest';
 import {AppointmentRequest} from '../models/AppointmentRequest';
-import {$} from 'protractor';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-home',
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
     this.make.endDate = endDate;
     this.make.roomId = idRoom;
     if (total > 10) {
-      return this.http.post<AppointmentResponse>('http://localhost:8080/makeAppointment', this.make, {headers: headers2});
+      return this.http.post<AppointmentResponse>(Global.domainName + 'makeAppointment', this.make, {headers: headers2});
     }
     alert('Can not book that one!');
   }
@@ -77,7 +77,6 @@ export class HomeComponent implements OnInit {
   doMakeAppointment(idRoom: number, startDate: string, endDate: string, total: number) {
     this.makeAppointment(idRoom, startDate, endDate, total).subscribe(
       result => {
-        alert(result);
         console.table(result);
         if (result) {
           alert('appointment made succesfully!!');
@@ -92,10 +91,6 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  redirect(iterator: SearchResponse) {
 
-
-    window.location.href = '/about';
-  }
 }
 

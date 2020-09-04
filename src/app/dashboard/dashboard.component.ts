@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppointmentResponse} from '../models/AppointmentResponse';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Global} from '../commons/Global';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,6 @@ export class DashboardComponent implements OnInit {
     let headers2: HttpHeaders = new HttpHeaders();
     headers2 = headers2.append('Content-Type', 'application/json; charset=utf-8');
     headers2 = headers2.append('TOKEN', localStorage.getItem('token'));
-    return this.http.post<AppointmentResponse[]>('http://localhost:8080/getUserAppointments', null, {headers: headers2});
+    return this.http.post<AppointmentResponse[]>(Global.domainName + 'getUserAppointments', null, {headers: headers2});
   }
 }
